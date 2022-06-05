@@ -36,6 +36,14 @@ function handleClick() {
       if (wordList[j] === letter) {
         toGuess[j] = letter + " ";
         $(".solut").text(toGuess.join(""))
+        console.log(wordList.join(" ") + toGuess.join(""));
+        if (toGuess.join("") === (wordList.join(" ") + " ")) {
+
+          $("ttl").text("Gewonnen!")
+          for (var i = 0; i < 26; i++) {
+            document.querySelectorAll(".keyboard__key")[i].removeEventListener("click", handleClick);
+            document.querySelectorAll(".keyboard__key")[i].style.backgroundColor = "#18191A";}
+        }
       };
     };
     console.log("happy");
