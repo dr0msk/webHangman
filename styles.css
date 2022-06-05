@@ -1,0 +1,9 @@
+body {
+  font-family: monospace;
+  background-color: #18191A;
+  color: white;
+}
+
+.hangman {
+  white-space: pre;
+}
