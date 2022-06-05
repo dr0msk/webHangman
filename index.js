@@ -1,40 +1,53 @@
-$("h1").text("Hangman");
+var word = "Antipol";
+var counter = 0;
+var toGuess = [];
+var wordList = word.toUpperCase().split("");
+var hangDict = {
+    0: " \n \n \n \n ",
+    1: ' \n \n \n \n∆',
+    2: ' \n \n \n|\n∆',
+    3: ' \n \n|\n|\n∆',
+    4: ' \n|\n|\n|\n∆',
+    5: '____\n|\n|\n|\n∆',
+    6: '____\n|  @\n|\n|\n∆',
+    7: '____\n|  @\n| /\n|\n∆',
+    8: '____\n|  @\n| /0\n|\n∆',
+    9: '____\n|  @\n| /0\\ \n|\n∆',
+    10: '____\n|  @\n| /0\\ \n|  ∏  \n∆'
+}
 
-var figlet = require('figlet');
+for (var n = 0; n < word.length; n++) {
+  toGuess.push("_ ");
+};
 
-function figlt(x) {
-  figlet.text(x, {
-      font: 'ogre',
-      horizontalLayout: 'default',
-      verticalLayout: 'default',
-      width: 80,
-      whitespaceBreak: true
-  }, function(err, data) {
-      if (err) {
-          console.log('Something went wrong...');
-          console.dir(err);
-          return;
+$(".solut").text(toGuess.join(""))
+
+$(".hangman").text(hangDict[counter])
+for (var i = 0; i < 26; i++) {
+  document.querySelectorAll(".keyboard__key")[i].addEventListener("click", handleClick);
+}
+
+function handleClick() {
+  var letter = this.innerHTML;
+  document.querySelector("." + this.innerHTML).style.backgroundColor = "#18191A";
+  document.querySelector("." + this.innerHTML).removeEventListener("click", handleClick);
+  if (wordList.includes(letter)) {
+    for (var j = 0; j < wordList.length; j++) {
+      if (wordList[j] === letter) {
+        toGuess[j] = letter + " ";
+        $(".solut").text(toGuess.join(""))
+      };
+    };
+    console.log("happy");
+  } else {
+    counter++;
+    $(".hangman").text(hangDict[counter])
+    if (counter === 10) {
+      $("ttl").text("Verloren! Gesucht war: " + word)
+      for (var i = 0; i < 26; i++) {
+        document.querySelectorAll(".keyboard__key")[i].removeEventListener("click", handleClick);
+        document.querySelectorAll(".keyboard__key")[i].style.backgroundColor = "#18191A";
       }
-      console.log(data);
-  });
-}
-
-
-$("h1").text("Hangman");
-
-
-var hang_dict = {
-    0: ' <br> <br> <br> <br> ',
-    1: ' <br> <br> <br> <br>∆',
-    2: ' <br> <br> <br>|<br>∆',
-    3: ' <br> <br>|<br>|<br>∆',
-    4: ' <br>|<br>|<br>|<br>∆',
-    5: '____<br>|<br>|<br>|<br>∆',
-    6: '____<br>|  @<br>|<br>|<br>∆',
-    7: '____<br>|  @<br>| /<br>|<br>∆',
-    8: '____<br>|  @<br>| /0<br>|<br>∆',
-    9: '____<br>|  @<br>| /0\ <br>|<br>∆',
-    10: '____<br>|  @<br>| /0\ <br>|  ∏  <br>∆'
-}
-
-$("ttl").text("test");
+    }
+  }
+};
