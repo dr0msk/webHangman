@@ -1,5 +1,5 @@
 body {
-  font-family: monospace;
+  font-family: Courier, Monaco, monospace;
   background-color: #18191A;
   color: white;
   font-size: 1.5em;
@@ -35,8 +35,10 @@ body {
 }
 
 .keyboard__key {
-  height: 70px;
-  width: 6%;
+  height: 55px;
+  margin-left: none;
+  margin-right: none;
+  width: 70px;
   max-width: 100%;
   margin: 3px;
   border-radius: 4px;
